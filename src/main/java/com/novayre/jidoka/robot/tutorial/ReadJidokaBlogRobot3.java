@@ -32,6 +32,7 @@ import com.novayre.jidoka.data.provider.api.EExcelType;
 import com.novayre.jidoka.data.provider.api.IExcel;
 import com.novayre.jidoka.windows.api.EShowWindowState;
 import com.novayre.jidoka.windows.api.IWindows;
+import com.sun.jna.platform.win32.WinDef.HWND;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Date;
@@ -116,6 +117,7 @@ public class ReadJidokaBlogRobot3 implements IRobot {
     private String ruta_local = "C:\\Users\\X220\\Documents\\NetBeansProjects\\ApachePoi\\PaisesIdiomasMonedas.xlsx";
     private String ruta_server_jidoka;
     private static final String NOTEPAD_REGEXP = ".*Bloc de notas";
+    private HWND handler_notepad;
 
     /**
      * Current item index. The first one is the number '0'.
@@ -358,16 +360,23 @@ public class ReadJidokaBlogRobot3 implements IRobot {
     public void safe_notepad() throws Exception{
         windows.typeText(String.valueOf(row_ambos_formatos.getCell(0)));
         windows.typeText(windows.keyboardSequence().pressControl().type("g").releaseControl());
-        windows.pause();
+        windows.pause(7000);
         String name_notpad = "ejemplo.txt";
         String path = Paths.get(server.getCurrentDir(), name_notpad).toFile().getAbsolutePath();
+        File comprobar=new File(path);
+        //primero se comprueba si el fichero existe, en caso afirmativo primero se elimina para ahorrar el tener que sobrescribirlo de manera visual
+        server.info("El fichero existe?   "+comprobar.exists());
+        if(comprobar.exists()){
+            server.info("eliminando el fichero");
+            comprobar.delete();
+        }
         windows.typeText(path);
         windows.typeText(windows.keyboardSequence().typeReturn());
-        windows.pause();
+        windows.pause(7000);
         windows.typeText(windows.keyboardSequence().typeAltF(4));
         //windows.typeText(windows.keyboardSequence().pressAlt().type("o"));
         //windows.typeText(windows.keyboardSequence().typeAltF(4));
-        windows.pause();
+        windows.pause(7000);
     }
 
     public void extraer_xlsx_url() {
