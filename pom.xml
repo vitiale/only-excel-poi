@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.novayre.jidoka.robot.tutorial</groupId>
-            <artifactId>only-excel-victor1</artifactId>
+            <artifactId>only-excel-victor2</artifactId>
 	<packaging>jar</packaging>
 
 	<parent>
@@ -12,7 +12,7 @@
 		<version>4.0.0</version>
 	</parent>
 
-	<name>only-excel-victor1</name>
+	<name>only-excel-victor2</name>
 	<url>http://www.novayre.es</url>
 
 	<properties>
